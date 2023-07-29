@@ -1,0 +1,1 @@
+jextract -I /usr/include/ -I /usr/lib/gcc/x86_64-pc-linux-gnu/13.1.1/include/ -l jxl -l jxl_threads jxl.h --header-class-name LibJxl $(cat includes.txt) -t com.unascribed.jxljxl.panama --source --output src/main/java/
