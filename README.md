@@ -42,7 +42,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'com.unascribed:jxljxl:0.2'
+	implementation 'com.unascribed:jxljxl:0.2.1'
 }
 ```
 
@@ -50,6 +50,10 @@ dependencies {
 and give JXLJXL permission to invoke native code:
 
 `--enable-preview --enable-native-access=com.unascribed.jxljxl`
+
+If your project is not modular, then you will need this instead:
+
+`--enable-preview --enable-native-access=ALL-UNNAMED`
 
 JXLJXL does not currently bundle a copy of libjxl — that needs to be available on the target system.
 Bundled libraries will be added later.

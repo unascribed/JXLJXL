@@ -808,7 +808,7 @@ public class JXLEncoder {
 				check(JxlEncoderFrameSettingsSetOption(set, JXL_ENC_FRAME_SETTING_ALREADY_DOWNSAMPLED(), frame.alreadyDownsampled ? 1 : 0));
 				check(JxlEncoderFrameSettingsSetFloatOption(set, JXL_ENC_FRAME_SETTING_PHOTON_NOISE(), frame.photonNoise));
 				check(JxlEncoderFrameSettingsSetOption(set, JXL_ENC_FRAME_SETTING_DOTS(), nullableBoolint(frame.dots)));
-				check(JxlEncoderFrameSettingsSetOption(set, JXL_ENC_FRAME_SETTING_PATCHES(), nullableBoolint(frame.patches)-1));
+				check(JxlEncoderFrameSettingsSetOption(set, JXL_ENC_FRAME_SETTING_PATCHES(), nullableBoolint(frame.patches)));
 				check(JxlEncoderFrameSettingsSetOption(set, JXL_ENC_FRAME_SETTING_EPF(), frame.epf.ordinal()-1));
 				check(JxlEncoderFrameSettingsSetOption(set, JXL_ENC_FRAME_SETTING_GABORISH(), nullableBoolint(frame.gaborish)));
 				check(JxlEncoderFrameSettingsSetOption(set, JXL_ENC_FRAME_SETTING_MODULAR(), frame.modular));

@@ -7,7 +7,7 @@ plugins {
 base {
 	group = 'com.unascribed'
 	archivesName = 'JXLJXL'
-	version = '0.2'
+	version = '0.2.1'
 }
 
 compileJava {
@@ -23,6 +23,10 @@ license {
 
 jar {
 	from 'LICENSE'
+}
+
+java {
+	withSourcesJar()
 }
 
 publishing {
