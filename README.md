@@ -1,3 +1,5 @@
+<img src="logo.svg" align="right" width="180px" height="180px">
+
 # JXLJXL
 **Warning**: JXLJXL is not complete. Currently, it only offers an encode API and has not been
 thoroughly tested. It has encoded multiple files successfully, and v0.1 of it powers the JXL support
