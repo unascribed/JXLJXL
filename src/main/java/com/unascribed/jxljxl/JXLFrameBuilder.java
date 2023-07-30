@@ -146,7 +146,9 @@ public class JXLFrameBuilder {
 		 */
 		NATIVE,
 		/**
-		 * Force big-endian. In Java, you almost always want this.
+		 * Force big-endian. The Java foreign memory API will convert data to native endian for you,
+		 * meaning that (counter-intuitively) you do <b>not</b> want to use this value for data from
+		 * Java. You will likely want to use {@link #NATIVE}.
 		 */
 		BIG,
 		/**
