@@ -24,6 +24,8 @@
 
 package com.unascribed.jxljxl;
 
+import static com.unascribed.jxljxl.panama.LibJxl.*;
+
 import java.lang.foreign.MemorySegment;
 
 import com.unascribed.jxljxl.JXLFrameBuilder.JXLBlendMode;
@@ -47,6 +49,49 @@ public class JXLExtraChannelBuilder {
 		@Deprecated RESERVED4, @Deprecated RESERVED5, @Deprecated RESERVED6, @Deprecated RESERVED7,
 		UNKNOWN,
 		OPTIONAL,
+		;
+		
+		public int toNative() {
+			return switch (this) {
+				case ALPHA -> JXL_CHANNEL_ALPHA();
+				case BLACK -> JXL_CHANNEL_BLACK();
+				case CFA -> JXL_CHANNEL_CFA();
+				case DEPTH -> JXL_CHANNEL_DEPTH();
+				case OPTIONAL -> JXL_CHANNEL_OPTIONAL();
+				case RESERVED0 -> JXL_CHANNEL_RESERVED0();
+				case RESERVED1 -> JXL_CHANNEL_RESERVED1();
+				case RESERVED2 -> JXL_CHANNEL_RESERVED2();
+				case RESERVED3 -> JXL_CHANNEL_RESERVED3();
+				case RESERVED4 -> JXL_CHANNEL_RESERVED4();
+				case RESERVED5 -> JXL_CHANNEL_RESERVED5();
+				case RESERVED6 -> JXL_CHANNEL_RESERVED6();
+				case RESERVED7 -> JXL_CHANNEL_RESERVED7();
+				case SELECTION_MASK -> JXL_CHANNEL_SELECTION_MASK();
+				case SPOT_COLOR -> JXL_CHANNEL_SPOT_COLOR();
+				case THERMAL -> JXL_CHANNEL_THERMAL();
+				case UNKNOWN -> JXL_CHANNEL_UNKNOWN();
+			};
+		}
+		
+		public static JXLExtraChannelType fromNative(int i) {
+			if (i == JXL_CHANNEL_ALPHA()) return ALPHA;
+			if (i == JXL_CHANNEL_BLACK()) return BLACK;
+			if (i == JXL_CHANNEL_CFA()) return CFA;
+			if (i == JXL_CHANNEL_DEPTH()) return DEPTH;
+			if (i == JXL_CHANNEL_OPTIONAL()) return OPTIONAL;
+			if (i == JXL_CHANNEL_RESERVED0()) return RESERVED0;
+			if (i == JXL_CHANNEL_RESERVED1()) return RESERVED1;
+			if (i == JXL_CHANNEL_RESERVED2()) return RESERVED2;
+			if (i == JXL_CHANNEL_RESERVED3()) return RESERVED3;
+			if (i == JXL_CHANNEL_RESERVED4()) return RESERVED4;
+			if (i == JXL_CHANNEL_RESERVED5()) return RESERVED5;
+			if (i == JXL_CHANNEL_RESERVED6()) return RESERVED6;
+			if (i == JXL_CHANNEL_RESERVED7()) return RESERVED7;
+			if (i == JXL_CHANNEL_SELECTION_MASK()) return SELECTION_MASK;
+			if (i == JXL_CHANNEL_SPOT_COLOR()) return SPOT_COLOR;
+			if (i == JXL_CHANNEL_THERMAL()) return THERMAL;
+			return UNKNOWN;
+		}
 	}
 	
 	private final JXLFrameBuilder owner;

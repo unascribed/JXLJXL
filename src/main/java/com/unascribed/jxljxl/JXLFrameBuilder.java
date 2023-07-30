@@ -426,6 +426,7 @@ public class JXLFrameBuilder {
 	 * automatically enable true lossless mode if this is set to 0.0.
 	 */
 	public JXLFrameBuilder distance(float distance) {
+		if (distance == 0) owner.usesOriginalProfile(true);
 		this.distance = distance;
 		return this;
 	}

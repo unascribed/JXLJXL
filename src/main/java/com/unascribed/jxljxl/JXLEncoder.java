@@ -540,7 +540,7 @@ public class JXLEncoder {
 		return new JXLFrameBuilder(this).name(name).duration(duration);
 	}
 
-	private static final MemorySegment jxl_runner = JxlThreadParallelRunnerCreate(MemorySegment.NULL, Runtime.getRuntime().availableProcessors());
+	private static final MemorySegment jxl_runner = JxlThreadParallelRunnerCreate(MemorySegment.NULL, Runtime.getRuntime().availableProcessors()/2);
 	
 	private long nullableBoolint(Boolean b) {
 		return b == null ? -1 : b ? 1 : 0;
@@ -605,6 +605,8 @@ public class JXLEncoder {
 		var alloc = SegmentAllocator.nativeAllocator(SegmentScope.auto());
 		var enc = JxlEncoderCreate(MemorySegment.NULL);
 		try {
+			if (enc == null || enc.address() == 0) throw new JXLException("Creating encoder failed");
+			
 			applyBoolintUnlessNull(LibJxl::JxlEncoderUseContainer, enc, useContainer);
 			JxlEncoderSetCodestreamLevel(enc, codestreamLevel);
 			applyBoolintUnlessNull(LibJxl::JxlEncoderStoreJPEGMetadata, enc, storeJpegMetadata);
@@ -840,25 +842,7 @@ public class JXLEncoder {
 				
 				int i = 0;
 				for (var ex : frame.extraChannels) {
-					JxlEncoderInitExtraChannelInfo(switch (ex.type) {
-						case ALPHA -> JXL_CHANNEL_ALPHA();
-						case BLACK -> JXL_CHANNEL_BLACK();
-						case CFA -> JXL_CHANNEL_CFA();
-						case DEPTH -> JXL_CHANNEL_DEPTH();
-						case OPTIONAL -> JXL_CHANNEL_OPTIONAL();
-						case RESERVED0 -> JXL_CHANNEL_RESERVED0();
-						case RESERVED1 -> JXL_CHANNEL_RESERVED1();
-						case RESERVED2 -> JXL_CHANNEL_RESERVED2();
-						case RESERVED3 -> JXL_CHANNEL_RESERVED3();
-						case RESERVED4 -> JXL_CHANNEL_RESERVED4();
-						case RESERVED5 -> JXL_CHANNEL_RESERVED5();
-						case RESERVED6 -> JXL_CHANNEL_RESERVED6();
-						case RESERVED7 -> JXL_CHANNEL_RESERVED7();
-						case SELECTION_MASK -> JXL_CHANNEL_SELECTION_MASK();
-						case SPOT_COLOR -> JXL_CHANNEL_SPOT_COLOR();
-						case THERMAL -> JXL_CHANNEL_THERMAL();
-						case UNKNOWN -> JXL_CHANNEL_UNKNOWN();
-					}, extraChannelInfo);
+					JxlEncoderInitExtraChannelInfo(ex.type.toNative(), extraChannelInfo);
 					var nameUtf = ex.name == null ? null : alloc.allocateUtf8String(ex.name);
 					JxlExtraChannelInfo.bits_per_sample$set(extraChannelInfo, ex.bitsPerSample);
 					JxlExtraChannelInfo.exponent_bits_per_sample$set(extraChannelInfo, ex.exponentBitsPerSample);
