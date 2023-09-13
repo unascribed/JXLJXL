@@ -10,20 +10,41 @@ base {
 	version = '0.2.1'
 }
 
-compileJava {
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = "UTF-8"
 	options.release = 20
 	options.compilerArgs += ['--enable-preview']
+}
+
+sourceSets {
+	viewer {
+		compileClasspath += sourceSets.main.output
+	}
 }
 
 license {
 	header = project.file('LICENSE')
 	
 	exclude '**/com/unascribed/jxljxl/panama/**'
+	exclude '**/org/imgscalr/**'
 }
 
 jar {
 	from 'LICENSE'
 }
+
+task viewerJar(type: Jar) {
+	from sourceSets.viewer.output
+	
+	archiveClassifier = 'viewer'
+	
+	manifest.attributes (
+		'Main-Class': 'com.unascribed.jxljxl.viewer.JXLJXLViewer',
+		'Class-Path': tasks.jar.archivePath.getName()
+	)
+}
+
+tasks.build.dependsOn viewerJar
 
 java {
 	withSourcesJar()
